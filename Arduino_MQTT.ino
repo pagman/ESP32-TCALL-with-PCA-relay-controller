@@ -35,7 +35,9 @@
 #define SIM800L_IP5306_VERSION_20200811
 
 #include "utilities.h"
-
+#include <Wire.h>
+#include <Adafruit_PWMServoDriver.h>
+Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 // Select your modem:
 #define TINY_GSM_MODEM_SIM800
 
@@ -63,14 +65,14 @@
 #define GSM_PIN ""
 
 const byte ledPin = 13;
-const byte oneon = 13;
-const byte oneoff = 12;
-const byte twoone = 25;
-const byte twooff = 14;
-const byte threeon = 33;
-const byte threeoff = 32;
-const byte fouron = 19;
-const byte fouroff = 18;
+//const byte oneon = 13;
+//const byte oneoff = 12;
+//const byte twoone = 25;
+//const byte twooff = 14;
+//const byte threeon = 33;
+//const byte threeoff = 32;
+//const byte fouron = 19;
+//const byte fouroff = 18;
 // Your GPRS credentials, if any
 const char apn[] = "TM";
 const char gprsUser[] = "";
@@ -78,6 +80,8 @@ const char gprsPass[] = "";
 
 // MQTT details
 const char *broker = "mqtthome.ddns.net";
+const char* mqttUser = "panagiotis";
+const char* mqttPassword = "16o29696";
 
 const char *topicLed = "a";
 const char *topicInit = "a";
@@ -120,78 +124,118 @@ void mqttCallback(char *topic, byte *payload, unsigned int len)
     Serial.print("Changing output to ");
     if(messageTemp == "on"){
       Serial.println("on");
-      digitalWrite(ledPin, HIGH);
+      digitalWrite(ledPin, HIGH);\
+      pwm.setPWM(0, 4096, 0);
+      pwm.setPWM(1, 4096, 0);
+      pwm.setPWM(2, 4096, 0);
+      pwm.setPWM(3, 4096, 0);
+      pwm.setPWM(4, 4096, 0);
+      pwm.setPWM(5, 4096, 0);
+      pwm.setPWM(6, 4096, 0);
+      pwm.setPWM(7, 4096, 0);
     }
     else if(messageTemp == "off"){
       Serial.println("off");
-      digitalWrite(ledPin, LOW);
-      digitalWrite(oneoff, LOW);
-      digitalWrite(oneon, LOW);
-      digitalWrite(twoone, LOW);
-      digitalWrite(twooff, LOW);
-      digitalWrite(threeon, LOW);
-      digitalWrite(threeoff, LOW);
-      digitalWrite(fouron, LOW);
-      digitalWrite(fouroff, LOW);
+      pwm.setPWM(0, 0, 4096);
+      pwm.setPWM(1, 0, 4096);
+      pwm.setPWM(2, 0, 4096);
+      pwm.setPWM(3, 0, 4096);
+      pwm.setPWM(4, 0, 4096);
+      pwm.setPWM(5, 0, 4096);
+      pwm.setPWM(6, 0, 4096);
+      pwm.setPWM(7, 0, 4096);
+//      digitalWrite(ledPin, LOW);
+//      digitalWrite(oneoff, LOW);
+//      digitalWrite(oneon, LOW);
+//      digitalWrite(twoone, LOW);
+//      digitalWrite(twooff, LOW);
+//      digitalWrite(threeon, LOW);
+//      digitalWrite(threeoff, LOW);
+//      digitalWrite(fouron, LOW);
+//      digitalWrite(fouroff, LOW);
     }
-    else if(messageTemp == "oneon"){
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("oneon");
-      digitalWrite(oneon, HIGH);
-      digitalWrite(oneoff, LOW);
+    else if(messageTemp == "on0"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("oneon");
+      digitalWrite(ledPin, HIGH);
+//      digitalWrite(oneoff, LOW);
+      pwm.setPWM(0, 4096, 0);
+      delay(100);
+      pwm.setPWM(1, 0, 4096);
     }
-    else if(messageTemp == "oneoff"){
+    else if(messageTemp == "off0"){
       
-      Serial.println("oneoff");
-      digitalWrite(oneon, LOW);
-      digitalWrite(oneoff, HIGH);
+//      Serial.println("oneoff");
+      digitalWrite(ledPin, LOW);
+      pwm.setPWM(1, 4096, 0);
+      delay(100);
+      pwm.setPWM(0, 0, 4096);
+//      digitalWrite(oneoff, HIGH);
     }
-    else if(messageTemp == "twoone"){
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("twoon");
-      digitalWrite(twoone, HIGH);
-      digitalWrite(twooff, LOW);
+    else if(messageTemp == "on1"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("twoon");
+//      digitalWrite(twoone, HIGH);
+//      digitalWrite(twooff, LOW);
+        pwm.setPWM(2, 4096, 0);
+        delay(100);
+        pwm.setPWM(3, 0, 4096);
     }
-    else if(messageTemp == "twooff"){
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("twooff");
-      digitalWrite(twoone, LOW);
-      digitalWrite(twooff, HIGH);
+    else if(messageTemp == "off1"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("twooff");
+//      digitalWrite(twoone, LOW);
+//      digitalWrite(twooff, HIGH);
+        pwm.setPWM(3, 4096, 0);
+        delay(100);
+        pwm.setPWM(2, 0, 4096);
     }
-    else if(messageTemp == "threeon"){
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("threeon");
-      digitalWrite(threeon, HIGH);
-      digitalWrite(threeoff, LOW);
+    else if(messageTemp == "on2"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("threeon");
+//      digitalWrite(threeon, HIGH);
+//      digitalWrite(threeoff, LOW);
+        pwm.setPWM(4, 4096, 0);
+        delay(100);
+        pwm.setPWM(5, 0, 4096);
     }
-    else if(messageTemp == "threeoff"){
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("threeoff");
-      digitalWrite(threeon, LOW);
-      digitalWrite(threeoff, HIGH);
+    else if(messageTemp == "off2"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("threeoff");
+//      digitalWrite(threeon, LOW);
+//      digitalWrite(threeoff, HIGH);
+        pwm.setPWM(5, 4096, 0);
+        delay(100);
+        pwm.setPWM(4, 0, 4096);
     }
-     else if(messageTemp == "fouron"){
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("fouron");
-      digitalWrite(fouron, HIGH);
-      digitalWrite(fouroff, LOW);
+     else if(messageTemp == "on3"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("fouron");
+//      digitalWrite(fouron, HIGH);
+//      digitalWrite(fouroff, LOW);
+        pwm.setPWM(6, 4096, 0);
+        delay(100);
+        pwm.setPWM(7, 0, 4096);
     }
-    else if(messageTemp == "fouroff"){
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("----------------------------------------");
-      Serial.println("fouroff");
-      digitalWrite(fouron, LOW);
-      digitalWrite(fouroff, HIGH);
+    else if(messageTemp == "off3"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("fouroff");
+//      digitalWrite(fouron, LOW);
+//      digitalWrite(fouroff, HIGH);
+        pwm.setPWM(7, 4096, 0);
+        delay(100);
+        pwm.setPWM(6, 0, 4096);
     }
      
   }
@@ -204,7 +248,7 @@ boolean mqttConnect()
     SerialMon.print(broker);
 
     // Connect to MQTT Broker
-    boolean status = mqtt.connect("GsmClientTest");
+    boolean status = mqtt.connect("GsmClientTest", mqttUser, mqttPassword);
 
     // Or, if you want to authenticate MQTT:
     //boolean status = mqtt.connect("GsmClientName", "mqtt_user", "mqtt_pass");
@@ -222,14 +266,14 @@ boolean mqttConnect()
 
 void setup()
 {
-    pinMode(oneon, OUTPUT);
-    pinMode(oneoff, OUTPUT);
-    pinMode(twoone, OUTPUT);
-    pinMode(twooff, OUTPUT);
-    pinMode(threeon, OUTPUT);
-    pinMode(threeoff, OUTPUT);
-    pinMode(fouron, OUTPUT);
-    pinMode(fouroff, OUTPUT);;
+//    pinMode(oneon, OUTPUT);
+//    pinMode(oneoff, OUTPUT);
+//    pinMode(twoone, OUTPUT);
+//    pinMode(twooff, OUTPUT);
+//    pinMode(threeon, OUTPUT);
+//    pinMode(threeoff, OUTPUT);
+//    pinMode(fouron, OUTPUT);
+//    pinMode(fouroff, OUTPUT);;
     
     // Set console baud rate
     SerialMon.begin(115200);
@@ -291,6 +335,15 @@ void setup()
     // MQTT Broker setup
     mqtt.setServer(broker, 1884);
     mqtt.setCallback(mqttCallback);
+
+    //pwm controller
+    pwm.begin();
+    pwm.setPWMFreq(1000);  // Set to whatever you like, we don't use it in this demo!
+
+  // if you want to really speed stuff up, you can go into 'fast 400khz I2C' mode
+  // some i2c devices dont like this so much so if you're sharing the bus, watch
+  // out for this!
+    Wire.setClock(400000);
     
 }
 
