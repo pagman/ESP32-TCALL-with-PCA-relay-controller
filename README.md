@@ -12,3 +12,10 @@ switch:
     command_topic: "a" # Topic to publish commands
     payload_on: "on0" # or "on", depending on your MQTT device
     payload_off: "off0" # or "off", depending on your MQTT device
+
+
+#mqtt broker
+active: false
+folder: mosquitto
+require_certificate: false
+anonymous: true
