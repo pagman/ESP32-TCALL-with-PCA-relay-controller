@@ -133,6 +133,15 @@ void mqttCallback(char *topic, byte *payload, unsigned int len)
       pwm.setPWM(5, 4096, 0);
       pwm.setPWM(6, 4096, 0);
       pwm.setPWM(7, 4096, 0);
+      pwm.setPWM(8, 4096, 0);
+      pwm.setPWM(9, 4096, 0);
+      pwm.setPWM(10, 4096, 0);
+      pwm.setPWM(11, 4096, 0);
+      pwm.setPWM(12, 4096, 0);
+      pwm.setPWM(13, 4096, 0);
+      pwm.setPWM(14, 4096, 0);
+      pwm.setPWM(15, 4096, 0);
+      
     }
     else if(messageTemp == "off"){
       Serial.println("off");
@@ -144,6 +153,14 @@ void mqttCallback(char *topic, byte *payload, unsigned int len)
       pwm.setPWM(5, 0, 4096);
       pwm.setPWM(6, 0, 4096);
       pwm.setPWM(7, 0, 4096);
+      pwm.setPWM(8, 0, 4096);
+      pwm.setPWM(9, 0, 4096);
+      pwm.setPWM(10, 0, 4096);
+      pwm.setPWM(11, 0, 4096);
+      pwm.setPWM(12, 0, 4096);
+      pwm.setPWM(13, 0, 4096);
+      pwm.setPWM(14, 0, 4096);
+      pwm.setPWM(15, 0, 4096);
 //      digitalWrite(ledPin, LOW);
 //      digitalWrite(oneoff, LOW);
 //      digitalWrite(oneon, LOW);
@@ -237,6 +254,91 @@ void mqttCallback(char *topic, byte *payload, unsigned int len)
         delay(100);
         pwm.setPWM(6, 0, 4096);
     }
+    else if(messageTemp == "on4"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("fouron");
+//      digitalWrite(fouron, HIGH);
+//      digitalWrite(fouroff, LOW);
+        pwm.setPWM(8, 4096, 0);
+        delay(100);
+        pwm.setPWM(9, 0, 4096);
+    }
+    else if(messageTemp == "off4"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("fouroff");
+//      digitalWrite(fouron, LOW);
+//      digitalWrite(fouroff, HIGH);
+        pwm.setPWM(9, 4096, 0);
+        delay(100);
+        pwm.setPWM(8, 0, 4096);
+    }
+    else if(messageTemp == "on5"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("fouron");
+//      digitalWrite(fouron, HIGH);
+//      digitalWrite(fouroff, LOW);
+        pwm.setPWM(10, 4096, 0);
+        delay(100);
+        pwm.setPWM(11, 0, 4096);
+    }
+    else if(messageTemp == "off5"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("fouroff");
+//      digitalWrite(fouron, LOW);
+//      digitalWrite(fouroff, HIGH);
+        pwm.setPWM(11, 4096, 0);
+        delay(100);
+        pwm.setPWM(10, 0, 4096);
+    }
+    else if(messageTemp == "on6"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("fouron");
+//      digitalWrite(fouron, HIGH);
+//      digitalWrite(fouroff, LOW);
+        pwm.setPWM(12, 4096, 0);
+        delay(100);
+        pwm.setPWM(13, 0, 4096);
+    }
+    else if(messageTemp == "off6"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("fouroff");
+//      digitalWrite(fouron, LOW);
+//      digitalWrite(fouroff, HIGH);
+        pwm.setPWM(13, 4096, 0);
+        delay(100);
+        pwm.setPWM(12, 0, 4096);
+    }
+    else if(messageTemp == "on7"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("fouron");
+//      digitalWrite(fouron, HIGH);
+//      digitalWrite(fouroff, LOW);
+        pwm.setPWM(14, 4096, 0);
+        delay(100);
+        pwm.setPWM(15, 0, 4096);
+    }
+    else if(messageTemp == "off7"){
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("----------------------------------------");
+//      Serial.println("fouroff");
+//      digitalWrite(fouron, LOW);
+//      digitalWrite(fouroff, HIGH);
+        pwm.setPWM(15, 4096, 0);
+        delay(100);
+        pwm.setPWM(14, 0, 4096);
+    }
+    
      
   }
   //Serial.println("----------------------------------------");
